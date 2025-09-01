@@ -132,6 +132,7 @@ jobs:
           components: "rustfmt"
 
       - uses: Swatinem/rust-cache@v2
+        continue-on-error: true
         with:
           prefix-key: ${{ matrix.job.os }}
 
@@ -325,6 +326,7 @@ jobs:
           components: "rustfmt"
 
       - uses: Swatinem/rust-cache@v2
+        continue-on-error: true
         with:
           prefix-key: ${{ matrix.job.os }}-sciter
 
@@ -498,6 +500,7 @@ jobs:
           components: "rustfmt"
 
       - uses: Swatinem/rust-cache@v2
+        continue-on-error: true
         with:
           prefix-key: rustdesk-lib-cache-ios
           key: ${{ matrix.job.target }}
@@ -615,6 +618,8 @@ jobs:
 
       - name: Install build runtime
         run: |
+          # Remove existing cmake to avoid version conflicts
+          brew uninstall --ignore-dependencies cmake || true
           brew install llvm create-dmg nasm cmake gcc wget ninja
           # pkg-config is handled in a separate step, because it may be already installed by `macos-latest`(14.7.1) runner
           if command -v pkg-config &>/dev/null; then
@@ -650,6 +655,7 @@ jobs:
           components: "rustfmt"
 
       - uses: Swatinem/rust-cache@v2
+        continue-on-error: true
         with:
           prefix-key: ${{ matrix.job.os }}
 
@@ -940,6 +946,7 @@ jobs:
           components: "rustfmt"
 
       - uses: Swatinem/rust-cache@v2
+        continue-on-error: true
         with:
           prefix-key: rustdesk-lib-cache-android # TODO: drop '-android' part after caches are invalidated
           key: ${{ matrix.job.target }}
